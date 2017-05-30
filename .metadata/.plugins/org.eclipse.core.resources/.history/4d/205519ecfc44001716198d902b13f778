@@ -1,0 +1,12 @@
+package kr.or.connect.persistence;
+
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+public class BookDao {
+	private NamedParameterJdbcTemplate jdbc;
+
+	public BookDao(DriverManagerDataSource dataSource) {
+		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	}
+}

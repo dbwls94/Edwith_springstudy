@@ -1,0 +1,9 @@
+package kr.or.connect.persistence;
+
+public class BookDao {
+	private NamedParameterJdbcTemplate jdbc;
+
+	public BookDao(DriverManagerDataSource dataSource) {
+		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+	}
+}

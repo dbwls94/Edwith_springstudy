@@ -10,7 +10,10 @@ import kr.or.connect.domain.Book;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 //import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Repository;
 public class BookDao {
 	private NamedParameterJdbcTemplate jdbc;
 
+	private SimpleJdbcInsert insertAction;
 	
 	/*public BookDao(DriverManagerDataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
@@ -26,6 +30,15 @@ public class BookDao {
 	//BookDao가 외부에서 주입된 DataSource에 의존 -> 직접 DataSource 객체생성 안해서 변경하지 않아도 되는 구조
 	public BookDao(DataSource dataSource) {
 		this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+		
+		this.insertAction = new SimpleJdbcInsert(dataSource)
+		.withTableName("book")
+		.usingGeneratedKeyColumns("id"); //자동생성되는 키 column
+	}
+	
+	public Integer insert(Book book) {
+		SqlParameterSource params = new BeanPropertySqlParameterSource(book);
+		return insertAction.executeAndReturnKey(params).intValue(); //생성된 키값 반환
 	}
 	
 	private static final String COUNT_BOOK = "SELECT COUNT(*) FROM book";

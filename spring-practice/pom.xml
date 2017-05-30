@@ -37,6 +37,13 @@
 			<artifactId>commons-dbcp2</artifactId>
 			<version>2.1.1</version>
 		</dependency>
+		
+		<!-- Spring의 ApplicationContext 기능을 위해서 필요한 의존성 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>4.3.7.RELEASE</version>
+		</dependency>
   </dependencies>
   
   <build>

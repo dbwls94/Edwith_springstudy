@@ -8,6 +8,7 @@ import javax.sql.DataSource;
 
 import kr.or.connect.domain.Book;
 
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -34,7 +35,9 @@ public class BookDao {
 	}
 	
 	private static final String SELECT_BY_ID = "SELECT id, title, author, pages FROM book where id = :id";
-	public Book selectById(Integer id) {
+	/*public Book selectById(Integer id) {
+		
+		//RowMapper 인터페이스에 맞춰서 쿼리 결과를 Book 객체로 변환(직접 작성)
 		RowMapper<Book> rowMapper = (rs, i) -> { //rs -> ResultSet
 			Book book = new Book();
 			book.setId(rs.getInt("id"));
@@ -44,6 +47,17 @@ public class BookDao {
 			return book;
 		};
 
+		Map<String, Object> params = new HashMap<>();
+		params.put("id", id);
+		return jdbc.queryForObject(SELECT_BY_ID, params, rowMapper);
+	}*/
+	
+	//BeanPropertyRowMapper로 Book클래스와 대응되는 RowMapper인스턴스 생성
+	
+	private RowMapper<Book> rowMapper = BeanPropertyRowMapper.newInstance(Book.class); //멀티스레드에서 접근해도 안전하기때문에 멤버변수로 선언/초기화해도 ok
+	
+	public Book selectById(Integer id) {
+		
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", id);
 		return jdbc.queryForObject(SELECT_BY_ID, params, rowMapper);

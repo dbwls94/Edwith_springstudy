@@ -6,8 +6,10 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
 //import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
+@Repository //spring에서 component scan 대상이라는 의미
 public class BookDao {
 	private NamedParameterJdbcTemplate jdbc;
 

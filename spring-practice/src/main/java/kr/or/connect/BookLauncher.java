@@ -44,8 +44,12 @@ public class BookLauncher {
 		
 		//3. AppConfig에서 생성된 객체는 ApplicationContext를 거쳐 BookLauncher에서 참조
 		ConfigurableApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-		DataSource dataSource = context.getBean(DataSource.class);
-		BookDao dao = new BookDao(dataSource);
+		
+		//4. BookDao를 직접 ApplicationContext에서 얻어옴
+		//DataSource dataSource = context.getBean(DataSource.class);
+		//BookDao dao = new BookDao(dataSource);
+		BookDao dao = context.getBean(BookDao.class);
+		
 		int count = dao.countBooks();
 		System.out.println(count);
 		context.close();

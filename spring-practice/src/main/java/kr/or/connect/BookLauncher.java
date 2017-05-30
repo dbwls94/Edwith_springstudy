@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import kr.or.connect.domain.Book;
 import kr.or.connect.persistence.BookDao;
 
 import org.springframework.context.ConfigurableApplicationContext;
@@ -52,6 +53,11 @@ public class BookLauncher {
 		
 		int count = dao.countBooks();
 		System.out.println(count);
+		
+		//Book id가 1인 Book 조회
+		Book book = dao.selectById(1);
+		System.out.println(book);
+		
 		context.close();
 	}
 

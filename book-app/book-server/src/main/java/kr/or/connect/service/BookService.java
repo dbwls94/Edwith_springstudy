@@ -42,4 +42,14 @@ public class BookService {
 		repo.put(id, book);
 		return book;
 	}
+	
+	public boolean update(Book book) {
+		Book old = repo.put(book.getId(), book);
+		return old != null;
+	}
+	
+	public boolean delete(Integer id) {
+		Book old = repo.remove(id);
+		return old != null;
+	}
 }

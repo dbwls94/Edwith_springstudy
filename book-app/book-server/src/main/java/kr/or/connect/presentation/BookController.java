@@ -8,8 +8,12 @@ import kr.or.connect.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/books") //공통적인 부분
@@ -31,5 +35,11 @@ public class BookController {
 	@GetMapping("/{id}")
 	Book read(@PathVariable  Integer id) {
 		return service.findById(id);
+	}
+	
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	Book create(@RequestBody Book book) {
+		return service.create(book);
 	}
 }

@@ -48,6 +48,16 @@
 			<version>2.2.0</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<!-- spring-jdbc/커넥션풀 라이브러리인 tomcat-jdbc 포함 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

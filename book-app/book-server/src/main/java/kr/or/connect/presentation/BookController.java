@@ -5,6 +5,8 @@ import java.util.Collection;
 import kr.or.connect.domain.Book;
 import kr.or.connect.service.BookService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,8 @@ import org.springframework.http.HttpStatus;
 @RequestMapping("/api/books") //공통적인 부분
 public class BookController {
 	private final BookService service; //BookService를 주입받음
-
+	private final Logger log = LoggerFactory.getLogger(BookController.class);
+	
 	@Autowired
 	public BookController(BookService service) {
 		this.service = service;
@@ -42,7 +45,10 @@ public class BookController {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	Book create(@RequestBody Book book) {
-		return service.create(book);
+		//return service.create(book);
+		Book newBook = service.create(book);
+		log.info("book created : {}" , newBook);
+		return book;
 	}
 	
 	@PutMapping("/{id}")
